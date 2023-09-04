@@ -39,8 +39,20 @@ fs.readFile(logFilePath, "utf8", (err, data) => {
         apiCallsPerMinute[minuteTimestamp]++;
       }
     }
+
+    const endpointMatch = line.match(/"([A-Z]+) (\/\S+) HTTP\/1\.\d+"/);
+    if (endpointMatch) {
+      const endpoint = endpointMatch[2];
+
+      if (!endpointCalls[endpoint]) {
+        endpointCalls[endpoint] = 1;
+      } else {
+        endpointCalls[endpoint]++;
+      }
+    }
   });
 
+  console.table(endpointCalls);
   console.table(statusCodes);
   console.table(apiCallsPerMinute);
 });
