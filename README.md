@@ -2,6 +2,12 @@
 
 This project is a Node.js application that analyzes log data from a file and provides insights into API endpoints, HTTP status codes, and API calls per minute. You can use different commands to generate specific reports based on the log data.
 
+
+## Example output
+![sample output](https://github.com/Anushka7310/unomok_practical_task/assets/61081130/1013bc39-7d44-4a50-aca3-794a2d4a609a)
+
+
+
 ## Installation
 
 Before running this project, make sure you have Node.js and npm (Node Package Manager) installed on your system. You'll also need TypeScript to run the code.
