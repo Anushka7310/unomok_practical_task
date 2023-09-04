@@ -30,8 +30,17 @@ fs.readFile(logFilePath, "utf8", (err, data) => {
       } else {
         statusCodes[statusName].count++;
       }
+
+      // Calculate API calls per minute
+      const minuteTimestamp = timestamp.substring(0, 16); // Extract the minute portion
+      if (!apiCallsPerMinute[minuteTimestamp]) {
+        apiCallsPerMinute[minuteTimestamp] = 1;
+      } else {
+        apiCallsPerMinute[minuteTimestamp]++;
+      }
     }
   });
 
   console.table(statusCodes);
+  console.table(apiCallsPerMinute);
 });
