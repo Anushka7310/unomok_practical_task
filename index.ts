@@ -1,7 +1,9 @@
-const fs = require("fs");
-const logFilePath = "./data/prod-api-prod-out.log";
-const httpStatusCodeName = require("./http-Error-Code-Names.json");
 const argv = process.argv.slice(2);
+const fs = require("fs");
+const httpStatusCodeName = require("./http-Error-Code-Names.json");
+
+const logFilePath =
+  argv[1]?.replace("filepath=", "") || "./data/prod-api-prod-out.log";
 
 fs.readFile(logFilePath, "utf8", (err, data) => {
   if (err) {

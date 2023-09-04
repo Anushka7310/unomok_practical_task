@@ -6,9 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node --loader ts-node/esm index.ts",
-    "endpoint": "node --loader ts-node/esm index.ts --table=endpoint",
+    "endpoints": "node --loader ts-node/esm index.ts --table=endpoint",
     "statuscodes": "node --loader ts-node/esm index.ts --table=statusCode",
-    "minute": "node --loader ts-node/esm index.ts --table=minute"
+    "minutes": "node --loader ts-node/esm index.ts --table=minute"
   },
   "keywords": [],
   "author": "",
