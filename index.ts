@@ -1,10 +1,12 @@
-// Import necessary modules
+import * as process from "process"; // Import process module for command line arguments
+import * as fs from "fs";
+import httpStatusCodeNames from "./http-Error-Code-Names.json";
+import { ApiCallsPerMinute, EndpointCalls, StatusCodes } from "./types";
+
 const argv = process.argv.slice(2); // Extract command line arguments
-const fs = require("fs");
-const httpStatusCodeName = require("./http-Error-Code-Names.json");
 
 // Determine the log file path from the command line arguments or use a default path
-const logFilePath =
+const logFilePath: string =
   argv[1]?.replace("filepath=", "") || "./data/prod-api-prod-out.log";
 
 // Read the log file
@@ -15,12 +17,12 @@ fs.readFile(logFilePath, "utf8", (err, data) => {
   }
 
   // Split the log file into lines
-  const logLines = data.split("\n");
+  const logLines: string[] = data.split("\n");
 
   // Initialize empty objects to store data
-  const endpointCalls = {};
-  const statusCodes = {};
-  const apiCallsPerMinute = {};
+  const endpointCalls: EndpointCalls = {};
+  const statusCodes: StatusCodes = {};
+  const apiCallsPerMinute: ApiCallsPerMinute = {};
 
   // Iterate through each log line
   logLines.forEach((line) => {
@@ -28,13 +30,13 @@ fs.readFile(logFilePath, "utf8", (err, data) => {
     const match = line.match(
       /(\d{4}-\d{2}-\d{2} \d{2}:\d{2}).*?(GET|POST|PUT|DELETE|HEAD|OPTIONS|TRACE) .*? (\d{3})\b/
     );
+
     if (match) {
-      // Extract matched values from the regex
-      const timestamp = match[1];
-      const statusCode = match[3];
-      const statusName = httpStatusCodeName[statusCode];
+      const [_, timestamp, method, statusCode] = match;
 
       // Count occurrences of each HTTP status code
+      const statusName = httpStatusCodeNames[statusCode];
+
       if (!statusCodes[statusName]) {
         statusCodes[statusName] = {
           statusCode,
@@ -56,8 +58,7 @@ fs.readFile(logFilePath, "utf8", (err, data) => {
     // Match the log line to extract the HTTP method and endpoint
     const endpointMatch = line.match(/"([A-Z]+) (\/\S+) HTTP\/1\.\d+"/);
     if (endpointMatch) {
-      // Extract the matched endpoint
-      const endpoint = endpointMatch[2];
+      const [_, method, endpoint] = endpointMatch;
 
       // Count occurrences of each endpoint
       if (!endpointCalls[endpoint]) {
