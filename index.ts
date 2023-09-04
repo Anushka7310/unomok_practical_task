@@ -1,7 +1,8 @@
 const fs = require("fs");
 const logFilePath = "./data/prod-api-prod-out.log";
 const httpStatusCodeName = require("./http-Error-Code-Names.json");
-console.log(httpStatusCodeName);
+const argv = process.argv.slice(2);
+
 fs.readFile(logFilePath, "utf8", (err, data) => {
   if (err) {
     console.error("Error reading the file:", err);
@@ -51,8 +52,16 @@ fs.readFile(logFilePath, "utf8", (err, data) => {
       }
     }
   });
-
-  console.table(endpointCalls);
-  console.table(statusCodes);
-  console.table(apiCallsPerMinute);
+  const table = argv[0].replace("--table=", "");
+  if (table === "endpoint") {
+    console.table(endpointCalls);
+  } else if (table === "statusCode") {
+    console.table(statusCodes);
+  } else if (table === "minute") {
+    console.table(apiCallsPerMinute);
+  } else {
+    console.table(endpointCalls);
+    console.table(statusCodes);
+    console.table(apiCallsPerMinute);
+  }
 });
