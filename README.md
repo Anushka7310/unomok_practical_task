@@ -4,7 +4,8 @@ This project is a Node.js application that analyzes log data from a file and pro
 
 
 ## Example output
-![sample output](https://github.com/Anushka7310/unomok_practical_task/assets/61081130/1013bc39-7d44-4a50-aca3-794a2d4a609a)
+
+![sample output](https://github.com/Anushka7310/unomok_practical_task/assets/61081130/f147d0de-2ab0-4de7-aaa2-5ca56441c954)
 
 # Note:
 Edit index.ts file to provide path of log file or use filepath arg in the command line as mentioned below
